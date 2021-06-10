@@ -1,27 +1,16 @@
-const {MongoClient} = require("mongodb");
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-const client = new MongoClient('mongodb://localhost:27017', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
 
-async function run() {
-    try {
-        // Connect the client to the server
-        await client.connect();
-        // Establish and verify connection
-        const db = await client.db("University");
-        const professor = await db.collection('Professor');
-        const result = await professor.find({}).project({_id: 0, Name: 1});
+axios(url)
+    .then(response => {
+        const html = response.data;
+        const $ = cheerio.load(html);
+        const tableInfo = $('table > tbody');
+        for (const table of tableInfo) {
+            console.info($(table).text())
 
-        while (await result.hasNext()) {
-            console.log(await result.next());
         }
-
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
-}
-
-run().catch(console.dir);
+    })
+    .catch(console.error);
