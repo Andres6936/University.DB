@@ -7,6 +7,30 @@ function extractPersonalInformation(node) {
     console.log(node);
 }
 
+function extractSocialNetworks() {
+
+}
+
+function extractAcademicInformation() {
+
+}
+
+function extractComplementaryInformation() {
+
+}
+
+function extractProfessionalExperience() {
+
+}
+
+function extractImpactAreas() {
+
+}
+
+function extractLanguages() {
+
+}
+
 axios.get(url, {responseEncoding: 'latin1'})
     .then(response => {
         const html = response.data;
