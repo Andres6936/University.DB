@@ -13,7 +13,14 @@ function extractPersonalInformation(node) {
             const keyString = $(keyPair.get(0)).text();
             const valueString = $(keyPair.get(1)).text();
             const personal = {};
-            personal[keyString] = valueString.trim()
+            // We can remove all line breaks by using a regex to match all the line breaks by writing:
+            // str = str.replace(/(\r\n|\n|\r)/gm, "");
+            // \r\n is the CRLF line break used by Windows.
+            // \n is a LF line break used by everything else.
+            // \r is a carriage return.
+            // g gets all instances of the line breaks.
+            // We replace them all with empty strings to remove them.
+            personal[keyString] = valueString.trim().replace(/(\r\n|\n|\r)/gm, "");
             information.push(personal)
         }
     }
