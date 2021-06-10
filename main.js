@@ -20,7 +20,10 @@ function extractPersonalInformation(node) {
             // \r is a carriage return.
             // g gets all instances of the line breaks.
             // We replace them all with empty strings to remove them.
-            personal[keyString] = valueString.trim().replace(/(\r\n|\n|\r)/gm, "");
+            personal[keyString] = valueString.trim()
+                .replace(/(\r\n|\n|\r)/gm, "")
+                // Remove any amount of spaces for a single space
+                .replace(/\s+/g, ' ');
             information.push(personal)
         }
     }
