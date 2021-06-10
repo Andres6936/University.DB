@@ -4,7 +4,20 @@ const cheerio = require('cheerio');
 const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
 
 function extractPersonalInformation(node) {
-    console.log(node);
+    const $ = cheerio.load(node);
+    const elements = $('tr')
+    const information = [];
+    for (const element of elements) {
+        const keyPair = $(element).find('td')
+        if (keyPair.length === 2) {
+            const keyString = $(keyPair.get(0)).text();
+            const valueString = $(keyPair.get(1)).text();
+            const personal = {};
+            personal[keyString] = valueString.trim()
+            information.push(personal)
+        }
+    }
+    console.info(information)
 }
 
 function extractSocialNetworks() {
@@ -40,7 +53,7 @@ axios.get(url, {responseEncoding: 'latin1'})
             //@type {string} The text of node
             const textNode = $(table).text();
             if (textNode.includes('Par evaluador reconocido por Minciencias')) {
-                extractPersonalInformation(textNode);
+                extractPersonalInformation(table);
             } else if (textNode.includes('Redes sociales académicas')) {
 
             } else if (textNode.includes('Identificadores de autor')) {
