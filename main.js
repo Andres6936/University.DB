@@ -25,6 +25,24 @@ axios.get(url, {responseEncoding: 'latin1'})
 
             } else if (textNode.includes('Formación Complementaria')) {
 
+            } else if (textNode.includes('Experiencia profesional')) {
+
+            } else if (textNode.includes('Áreas de actuación')) {
+
+            } else if (textNode.includes('Idiomas')) {
+
+            } else if (textNode.includes('Líneas de investigación')) {
+
+            } else if (textNode.includes('Reconocimientos')) {
+
+            } else if (textNode.includes('Cursos de corta duración')) {
+
+            } else if (textNode.includes('Trabajos dirigidos/tutorías')) {
+
+            } else if (textNode.includes('Jurado en comités de evaluación')) {
+
+            } else if (textNode.includes('Participación en comités de evaluación')) {
+
             }
         }
     })
