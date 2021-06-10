@@ -9,6 +9,7 @@ function extractPersonalInformation(node) {
     const information = [];
     for (const element of elements) {
         const keyPair = $(element).find('td')
+        // Only process values with key : value
         if (keyPair.length === 2) {
             const keyString = $(keyPair.get(0)).text();
             const valueString = $(keyPair.get(1)).text();
