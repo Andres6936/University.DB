@@ -43,6 +43,22 @@ axios.get(url, {responseEncoding: 'latin1'})
 
             } else if (textNode.includes('Participación en comités de evaluación')) {
 
+            } else if (textNode.includes('Par evaluador')) {
+
+            } else if (textNode.includes('Eventos científicos')) {
+
+            } else if (textNode.includes('Redes de conocimiento especializado')) {
+
+            } else if (textNode.includes('Espacios de participación ciudadana')) {
+
+            } else if (textNode.includes('Artículos')) {
+
+            } else if (textNode.includes('Capitulos de libro')) {
+
+            } else if (textNode.includes('Documentos de trabajo')) {
+
+            } else if (textNode.includes('Softwares')) {
+
             }
         }
     })
