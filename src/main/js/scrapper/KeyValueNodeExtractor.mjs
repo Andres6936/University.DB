@@ -1,4 +1,5 @@
 import {WebScrappingService} from "./WebScrappingService.mjs";
+import {Pair} from "../util/Pair.mjs";
 
 export class KeyValueNodeExtractor {
     #nodes = []
@@ -12,9 +13,7 @@ export class KeyValueNodeExtractor {
             if (keyPair.length === 2) {
                 const keyString = webScrapper.getTextByNode(keyPair.get(0));
                 const valueString = webScrapper.getTextByNode(keyPair.get(1));
-                const node = new Map();
-                node.set(keyString, valueString);
-                this.#nodes.push(node);
+                this.#nodes.push(new Pair(keyString, valueString));
             }
         }
     }
