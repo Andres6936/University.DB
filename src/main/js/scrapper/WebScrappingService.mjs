@@ -13,7 +13,7 @@ export class WebScrappingService extends IScrapperService {
 
     constructor(html) {
         super();
-        this.#instance = this.#parseNode(html);
+        this.#instance = WebScrappingService.#parseNode(html);
     }
 
     static #parseNode(node) {
@@ -24,8 +24,12 @@ export class WebScrappingService extends IScrapperService {
      * @inheritDoc
      */
     parsePage(html) {
-        this.#instance = this.#parseNode(html);
+        this.#instance = WebScrappingService.#parseNode(html);
         return this;
+    }
+
+    getTextByNode(node) {
+        return WebScrappingService.#parseNode(node).text();
     }
 
     /**

@@ -10,6 +10,10 @@ export class IScrapperService {
         throw new Error("Cannot instance a abstract class");
     }
 
+    getTextByNode(node) {
+        throw new Error("Cannot instance a abstract class");
+    }
+
     /**
      * @param selector {string} The selector used for filter
      * @return Array<Object> The element that coincide with the selector
