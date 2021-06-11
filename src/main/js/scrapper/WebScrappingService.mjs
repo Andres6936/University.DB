@@ -11,7 +11,7 @@ export class WebScrappingService extends IScrapperService {
      * @inheritDoc
      */
     parsePage(html) {
-        this.instace(html)
+        this.instace = cheerio.load(html)
         return this;
     }
 

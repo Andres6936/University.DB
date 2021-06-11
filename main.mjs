@@ -23,7 +23,7 @@ function extractPersonalInformation(node) {
 
     const information = [];
     for (const element of elements) {
-        const keyPair = $(element).find('td')
+        const keyPair = webScrapper.parsePage(element).getElementsBySelector('td');
         // Only process values with key : value
         if (keyPair.length === 2) {
             const keyString = $(keyPair.get(0)).text();
