@@ -77,6 +77,11 @@ function extractAcademicInformation(node) {
         }
     }
     console.info(information)
+    for (const object of information) {
+        translateObject(object).then((object) => {
+            console.info(object);
+        }).catch(console.dir);
+    }
 }
 
 function extractComplementaryInformation() {
