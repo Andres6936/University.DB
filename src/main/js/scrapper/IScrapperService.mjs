@@ -1,6 +1,5 @@
 export class IScrapperService {
-    constructor(html) {
-        this.page = html;
+    constructor() {
     }
 
     /**

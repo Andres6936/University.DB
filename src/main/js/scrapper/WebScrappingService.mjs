@@ -3,15 +3,15 @@ import {IScrapperService} from './IScrapperService.mjs'
 
 export class WebScrappingService extends IScrapperService {
     constructor(html) {
-        super(html);
-        this.instace = cheerio.load(this.page);
+        super();
+        this.#instace = cheerio.load(html);
     }
 
     /**
      * @inheritDoc
      */
     parsePage(html) {
-        this.instace = cheerio.load(html)
+        this.#instace = cheerio.load(html)
         return this;
     }
 
@@ -19,6 +19,6 @@ export class WebScrappingService extends IScrapperService {
      * @inheritDoc
      */
     getElementsBySelector(selector) {
-        return this.instace(selector);
+        return this.#instace(selector);
     }
 }
