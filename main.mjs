@@ -16,8 +16,6 @@ async function translateObject(object) {
 }
 
 function extractPersonalInformation(node) {
-    const $ = cheerio.load(node);
-
     const webScrapper = new WebScrappingService(node);
     const elements = webScrapper.getElementsBySelector('tr');
 
@@ -26,9 +24,8 @@ function extractPersonalInformation(node) {
         const keyPair = webScrapper.parsePage(element).getElementsBySelector('td');
         // Only process values with key : value
         if (keyPair.length === 2) {
-            const keyCopy = webScrapper.parsePage(keyPair.get(0)).toText();
-            const keyString = $(keyPair.get(0)).text();
-            const valueString = $(keyPair.get(1)).text();
+            const keyString = webScrapper.parsePage(keyPair.get(0)).toText();
+            const valueString = webScrapper.parsePage(keyPair.get(1)).toText();
             const personal = {};
             // We can remove all line breaks by using a regex to match all the line breaks by writing:
             // str = str.replace(/(\r\n|\n|\r)/gm, "");
