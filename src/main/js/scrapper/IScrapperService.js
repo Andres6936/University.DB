@@ -1,5 +1,5 @@
 class IScrapperService {
-    constructor(props) {
-
+    constructor(page) {
+        this.page = page;
     }
 }
