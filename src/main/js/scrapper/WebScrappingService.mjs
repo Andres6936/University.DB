@@ -1,4 +1,5 @@
-const cheerio = require('cheerio');
+import cheerio from "cheerio";
+import {IScrapperService} from './IScrapperService.mjs'
 
 export class WebScrappingService extends IScrapperService {
     constructor(html) {

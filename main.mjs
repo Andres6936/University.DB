@@ -1,6 +1,7 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const translate = require('@iamtraction/google-translate');
+import axios from "axios";
+import cheerio from 'cheerio';
+import translate from "@iamtraction/google-translate";
+import {WebScrappingService} from "./src/main/js/scrapper/WebScrappingService.mjs";
 
 const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
 
@@ -16,7 +17,10 @@ async function translateObject(object) {
 
 function extractPersonalInformation(node) {
     const $ = cheerio.load(node);
-    const elements = $('tr')
+
+    const webScrapper = new WebScrappingService(node);
+    const elements = webScrapper.getElementsBySelector('tr');
+
     const information = [];
     for (const element of elements) {
         const keyPair = $(element).find('td')

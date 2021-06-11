@@ -1,4 +1,4 @@
-class IScrapperService {
+export class IScrapperService {
     constructor(html) {
         this.page = html;
     }
