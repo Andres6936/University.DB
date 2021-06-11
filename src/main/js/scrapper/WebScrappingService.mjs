@@ -2,16 +2,18 @@ import cheerio from "cheerio";
 import {IScrapperService} from './IScrapperService.mjs'
 
 export class WebScrappingService extends IScrapperService {
+    #instance = undefined;
+
     constructor(html) {
         super();
-        this.#instace = cheerio.load(html);
+        this.#instance = cheerio.load(html);
     }
 
     /**
      * @inheritDoc
      */
     parsePage(html) {
-        this.#instace = cheerio.load(html)
+        this.#instance = cheerio.load(html)
         return this;
     }
 
@@ -19,14 +21,14 @@ export class WebScrappingService extends IScrapperService {
      * @inheritDoc
      */
     getElementsBySelector(selector) {
-        return this.#instace(selector);
+        return this.#instance(selector);
     }
 
     toText() {
-        return this.#instace.text();
+        return this.#instance.text();
     }
 
     toHTML() {
-        return this.#instace.html();
+        return this.#instance.html();
     }
 }

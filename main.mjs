@@ -26,6 +26,7 @@ function extractPersonalInformation(node) {
         const keyPair = webScrapper.parsePage(element).getElementsBySelector('td');
         // Only process values with key : value
         if (keyPair.length === 2) {
+            const keyCopy = webScrapper.parsePage(keyPair.get(0)).toText();
             const keyString = $(keyPair.get(0)).text();
             const valueString = $(keyPair.get(1)).text();
             const personal = {};
