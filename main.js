@@ -43,8 +43,8 @@ function extractAcademicInformation(node) {
         const keyPair = $(element).find('td')
         // Only process values with key : value
         if (keyPair.length === 2) {
-            const keyString = $(keyPair.get(0)).text();
             const valueString = $(keyPair.get(1)).text();
+            const keyString = valueString.substr(0, valueString.indexOf('\n'));
             const personal = {};
             // We can remove all line breaks by using a regex to match all the line breaks by writing:
             // str = str.replace(/(\r\n|\n|\r)/gm, "");
