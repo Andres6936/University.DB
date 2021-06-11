@@ -6,14 +6,18 @@ export class WebScrappingService extends IScrapperService {
 
     constructor(html) {
         super();
-        this.#instance = cheerio.load(html);
+        this.#instance = this.#parseNode(html);
+    }
+
+    static #parseNode(node) {
+        return cheerio.load(node);
     }
 
     /**
      * @inheritDoc
      */
     parsePage(html) {
-        this.#instance = cheerio.load(html)
+        this.#instance = this.#parseNode(html);
         return this;
     }
 
