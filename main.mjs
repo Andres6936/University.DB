@@ -41,7 +41,6 @@ function extractPersonalInformation(node) {
             information.push(personal)
         }
     }
-    console.info(information)
     for (const object of information) {
         translateObject(object).then((object) => {
             console.info(object);
