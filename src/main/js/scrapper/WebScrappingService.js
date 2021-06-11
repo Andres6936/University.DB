@@ -1,3 +1,5 @@
-class WebScrappingService {
-
+class WebScrappingService extends IScrapperService {
+    constructor(props) {
+        super(props);
+    }
 }
