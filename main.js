@@ -1,7 +1,18 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const translate = require('@iamtraction/google-translate');
 
 const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
+
+async function translateObject(object) {
+    const translatedObject = {}
+    for (const property in object) {
+        const textKey = await translate(property, {to: 'en'});
+        const textValue = await translate(object[property], {to: 'en'});
+        translatedObject[textKey.text] = textValue.text;
+    }
+    console.log(translatedObject);
+}
 
 function extractPersonalInformation(node) {
     const $ = cheerio.load(node);
@@ -29,6 +40,11 @@ function extractPersonalInformation(node) {
         }
     }
     console.info(information)
+    for (const object of information) {
+        translateObject(object).then((object) => {
+            console.info(object);
+        }).catch(console.dir);
+    }
 }
 
 function extractSocialNetworks() {
