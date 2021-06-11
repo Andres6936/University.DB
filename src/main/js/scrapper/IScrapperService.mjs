@@ -17,4 +17,12 @@ export class IScrapperService {
     getElementsBySelector(selector) {
         throw new Error("Cannot instance a abstract class");
     }
+
+    toText() {
+        throw new Error("Cannot instance a abstract class");
+    }
+
+    toHTML() {
+        throw new Error("Cannot instance a abstract class");
+    }
 }

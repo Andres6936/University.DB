@@ -21,4 +21,12 @@ export class WebScrappingService extends IScrapperService {
     getElementsBySelector(selector) {
         return this.#instace(selector);
     }
+
+    toText() {
+        return this.#instace.text();
+    }
+
+    toHTML() {
+        return this.#instace.html();
+    }
 }
