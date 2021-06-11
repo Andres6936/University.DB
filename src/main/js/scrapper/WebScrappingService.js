@@ -1,8 +1,8 @@
 const cheerio = require('cheerio');
 
 class WebScrappingService extends IScrapperService {
-    constructor(page) {
-        super(page);
+    constructor(html) {
+        super(html);
         this.instace = cheerio.load(this.page);
     }
 

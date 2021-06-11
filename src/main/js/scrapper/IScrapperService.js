@@ -1,6 +1,6 @@
 class IScrapperService {
-    constructor(page) {
-        this.page = page;
+    constructor(html) {
+        this.page = html;
     }
 
     getElementsBySelector(selector) {
