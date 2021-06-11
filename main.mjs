@@ -24,8 +24,8 @@ function extractPersonalInformation(node) {
         const keyPair = webScrapper.parsePage(element).getElementsBySelector('td');
         // Only process values with key : value
         if (keyPair.length === 2) {
-            const keyString = webScrapper.parsePage(keyPair.get(0)).toText();
-            const valueString = webScrapper.parsePage(keyPair.get(1)).toText();
+            const keyString = webScrapper.getTextByNode(keyPair.get(0));
+            const valueString = webScrapper.getTextByNode(keyPair.get(1));
             const personal = {};
             // We can remove all line breaks by using a regex to match all the line breaks by writing:
             // str = str.replace(/(\r\n|\n|\r)/gm, "");
