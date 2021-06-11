@@ -5,4 +5,8 @@ class WebScrappingService extends IScrapperService {
         super(page);
         this.instace = cheerio.load(this.page);
     }
+
+    getElementsBySelector(selector) {
+        return this.instace(selector);
+    }
 }
