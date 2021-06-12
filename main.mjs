@@ -19,7 +19,7 @@ async function translateObject(object) {
 
 function extractPersonalInformation(node) {
     const nodes = new KeyValueNodeExtractor(node).toArray();
-    TranslationService.translateArrayPair(nodes);
+    const text = new TranslationService().translateArrayPair(nodes).then(result => console.log(result));
 
     const webScrapper = new WebScrappingService(node);
     const elements = webScrapper.getElementsBySelector('tr');

@@ -7,8 +7,8 @@ export class TranslationService {
      * @param text {string} The text to will be translated.
      * @return {Promise<string>} The text translated.
      */
-    async static $translateText(text) {
-        return (await translate(text)).text
+    async translateText(text) {
+        return (await translate(text, {to: 'en'})).text
     }
 
     /**
@@ -16,9 +16,9 @@ export class TranslationService {
      * @param pair {Pair} The Pair object.
      * @return {Pair} The Pair object translated.
      */
-    static translatePair(pair) {
-        pair.first = this.$translateText(pair.first);
-        pair.second = this.$translateText(pair.second);
+    async translatePair(pair) {
+        pair.first = await this.translateText(pair.first);
+        pair.second = await this.translateText(pair.second);
         return pair;
     }
 
@@ -26,9 +26,11 @@ export class TranslationService {
      * Translate a array of Pair elements.
      * @param array {Array<Pair>} Array of Pair's.
      */
-    static translateArrayPair(array) {
-        for (let pair of array) {
-            pair = this.translatePair(pair);
+    async translateArrayPair(array) {
+        const objects = []
+        for (const pair of array) {
+            objects.push(await this.translatePair(pair));
         }
+        return objects;
     }
 }
