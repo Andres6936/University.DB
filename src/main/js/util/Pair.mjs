@@ -8,7 +8,7 @@ export class Pair {
     }
 
     get first() {
-        return this.x;
+        return this.#x;
     }
 
     set first(x) {
@@ -16,7 +16,7 @@ export class Pair {
     }
 
     get second() {
-        return this.y;
+        return this.#y;
     }
 
     set second(y) {
