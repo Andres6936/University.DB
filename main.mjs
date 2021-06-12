@@ -18,39 +18,13 @@ async function translateObject(object) {
 }
 
 function extractPersonalInformation(node) {
-    const nodes = new KeyValueNodeExtractor(node).toArray();
-    const text = new TranslationService().translateArrayPair(nodes).then(result => console.log(result));
-
-    const webScrapper = new WebScrappingService(node);
-    const elements = webScrapper.getElementsBySelector('tr');
-
-    const information = [];
-    for (const element of elements) {
-        const keyPair = webScrapper.parsePage(element).getElementsBySelector('td');
-        // Only process values with key : value
-        if (keyPair.length === 2) {
-            const keyString = webScrapper.getTextByNode(keyPair.get(0));
-            const valueString = webScrapper.getTextByNode(keyPair.get(1));
-            const personal = {};
-            // We can remove all line breaks by using a regex to match all the line breaks by writing:
-            // str = str.replace(/(\r\n|\n|\r)/gm, "");
-            // \r\n is the CRLF line break used by Windows.
-            // \n is a LF line break used by everything else.
-            // \r is a carriage return.
-            // g gets all instances of the line breaks.
-            // We replace them all with empty strings to remove them.
-            personal[keyString] = valueString.trim()
-                .replace(/(\r\n|\n|\r)/gm, "")
-                // Remove any amount of spaces for a single space
-                .replace(/\s+/g, ' ');
-            information.push(personal)
-        }
-    }
-    for (const object of information) {
-        translateObject(object).then((object) => {
-            console.info(object);
-        }).catch(console.dir);
-    }
+    let nodes = new KeyValueNodeExtractor(node).toArray();
+    new TranslationService().translateArrayPair(nodes)
+        .then(result => {
+            for (const object of result) {
+                console.log(object.toString());
+            }
+        });
 }
 
 function extractSocialNetworks() {
