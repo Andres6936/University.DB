@@ -6,18 +6,22 @@ export class TranslationService {
      * Translate the key and the value of pair.
      * @param pair {Pair} The Pair object.
      */
-    async static translatePair(pair) {
-        pair.first = await translate(pair.first).text;
-        pair.second = await translate(pair.second).text;
+    static translatePair(pair) {
+        translate(pair.first).then(res => {
+            pair.first = res.text;
+        });
+        translate(pair.second).then(res => {
+            pair.second = res.text;
+        });
     }
 
     /**
      * Translate a array of Pair elements.
      * @param array {Array<Pair>} Array of Pair's.
      */
-    async static translateArrayPair(array) {
+    static translateArrayPair(array) {
         for (const pair of array) {
-            await this.translatePair(pair);
+            this.translatePair(pair);
         }
     }
 }
