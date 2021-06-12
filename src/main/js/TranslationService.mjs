@@ -3,16 +3,23 @@ import translate from "@iamtraction/google-translate";
 export class TranslationService {
 
     /**
+     * Translate any text
+     * @param text {string} The text to will be translated.
+     * @return {Promise<string>} The text translated.
+     */
+    async static $translateText(text) {
+        return (await translate(text)).text
+    }
+
+    /**
      * Translate the key and the value of pair.
      * @param pair {Pair} The Pair object.
+     * @return {Pair} The Pair object translated.
      */
     static translatePair(pair) {
-        translate(pair.first).then(res => {
-            pair.first = res.text;
-        }).catch(console.dir);
-        translate(pair.second).then(res => {
-            pair.second = res.text;
-        }).catch(console.dir);
+        pair.first = this.$translateText(pair.first);
+        pair.second = this.$translateText(pair.second);
+        return pair;
     }
 
     /**
@@ -20,8 +27,8 @@ export class TranslationService {
      * @param array {Array<Pair>} Array of Pair's.
      */
     static translateArrayPair(array) {
-        for (const pair of array) {
-            this.translatePair(pair);
+        for (let pair of array) {
+            pair = this.translatePair(pair);
         }
     }
 }
