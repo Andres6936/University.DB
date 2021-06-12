@@ -2,6 +2,7 @@ import axios from "axios";
 import cheerio from 'cheerio';
 import translate from "@iamtraction/google-translate";
 import {WebScrappingService} from "./src/main/js/scrapper/WebScrappingService.mjs";
+import {KeyValueNodeExtractor} from "./src/main/js/scrapper/KeyValueNodeExtractor.mjs";
 
 const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
 
@@ -16,6 +17,7 @@ async function translateObject(object) {
 }
 
 function extractPersonalInformation(node) {
+    const nodes = new KeyValueNodeExtractor(node).toArray();
     const webScrapper = new WebScrappingService(node);
     const elements = webScrapper.getElementsBySelector('tr');
 
