@@ -8,6 +8,9 @@ export class TranslationService {
      * @return {Promise<string>} The text translated.
      */
     async translateText(text) {
+        // Wait 1/2 second in each translation
+        // Ref: https://stackoverflow.com/a/49139664
+        await new Promise(resolve => setTimeout(resolve, 500));
         return (await translate(text, {to: 'en'})).text
     }
 
