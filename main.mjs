@@ -1,22 +1,10 @@
 import axios from "axios";
 import cheerio from 'cheerio';
-import translate from "@iamtraction/google-translate";
-import {WebScrappingService} from "./src/main/js/scrapper/WebScrappingService.mjs";
 import {KeyValueNodeExtractor} from "./src/main/js/scrapper/KeyValueNodeExtractor.mjs";
 import {TranslationService} from "./src/main/js/TranslationService.mjs";
 import {NormalizeStringService} from "./src/main/js/NormalizeStringService.mjs";
 
 const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
-
-async function translateObject(object) {
-    const translatedObject = {}
-    for (const property in object) {
-        const textKey = await translate(property, {to: 'en'});
-        const textValue = await translate(object[property], {to: 'en'});
-        translatedObject[textKey.text] = textValue.text;
-    }
-    console.log(translatedObject);
-}
 
 function extractPersonalInformation(node) {
     let nodes = new KeyValueNodeExtractor(node).toArray();
