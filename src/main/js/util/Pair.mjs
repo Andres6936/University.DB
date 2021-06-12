@@ -11,7 +11,15 @@ export class Pair {
         return this.x;
     }
 
+    set first(x) {
+        this.#x = x;
+    }
+
     get second() {
         return this.y;
+    }
+
+    set second(y) {
+        this.#y = y;
     }
 }
