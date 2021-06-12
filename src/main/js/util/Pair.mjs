@@ -7,6 +7,11 @@ export class Pair {
         this.#y = y;
     }
 
+    toString() {
+        return "X: " + this.#x.toString() +
+            ", Y: " + this.#y.toString();
+    }
+
     get first() {
         return this.#x;
     }
