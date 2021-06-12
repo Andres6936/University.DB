@@ -38,36 +38,19 @@ function extractSocialNetworks() {
 }
 
 function extractAcademicInformation(node) {
-    const $ = cheerio.load(node);
-    const elements = $('tr')
-    const information = [];
-    for (const element of elements) {
-        const keyPair = $(element).find('td')
-        // Only process values with key : value
-        if (keyPair.length === 2) {
-            const valueString = $(keyPair.get(1)).text();
-            const keyString = valueString.substr(0, valueString.indexOf('\n'));
-            const personal = {};
-            // We can remove all line breaks by using a regex to match all the line breaks by writing:
-            // str = str.replace(/(\r\n|\n|\r)/gm, "");
-            // \r\n is the CRLF line break used by Windows.
-            // \n is a LF line break used by everything else.
-            // \r is a carriage return.
-            // g gets all instances of the line breaks.
-            // We replace them all with empty strings to remove them.
-            personal[keyString] = valueString.trim()
-                .replace(/(\r\n|\n|\r)/gm, "")
-                // Remove any amount of spaces for a single space
-                .replace(/\s+/g, ' ');
-            information.push(personal)
-        }
+    let nodes = new KeyValueNodeExtractor(node).toArray();
+    for (const node of nodes) {
+        node.first = node.second.substr(0, node.second.indexOf('\n'));
+        let value = NormalizeStringService.removeExtraSpaces(node.second)
+        value = NormalizeStringService.removeLineBreak(value);
+        node.second = value;
     }
-    console.info(information)
-    for (const object of information) {
-        translateObject(object).then((object) => {
-            console.info(object);
-        }).catch(console.dir);
-    }
+    new TranslationService().translateArrayPair(nodes)
+        .then(result => {
+            for (const object of result) {
+                console.log(object.toString());
+            }
+        });
 }
 
 function extractComplementaryInformation() {
