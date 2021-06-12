@@ -9,10 +9,10 @@ export class TranslationService {
     static translatePair(pair) {
         translate(pair.first).then(res => {
             pair.first = res.text;
-        });
+        }).catch(console.dir);
         translate(pair.second).then(res => {
             pair.second = res.text;
-        });
+        }).catch(console.dir);
     }
 
     /**
