@@ -21,9 +21,7 @@ export class App {
         if (this.#translateObjects) {
             new TranslationService().translateArrayPair(nodes)
                 .then(result => {
-                    for (const object of result) {
-                        console.log(object.toString());
-                    }
+                    App.#printNodes(result);
                 });
         }
     }
