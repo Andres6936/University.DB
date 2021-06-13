@@ -1,39 +1,4 @@
-import axios from "axios";
-import cheerio from 'cheerio';
 import {App} from "./src/main/js/App.mjs";
-import {KeyValueNodeExtractor} from "./src/main/js/scrapper/KeyValueNodeExtractor.mjs";
-import {TranslationService} from "./src/main/js/TranslationService.mjs";
-import {NormalizeStringService} from "./src/main/js/NormalizeStringService.mjs";
-
-const url = 'http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089';
-
-function extractPersonalInformation(node) {
-
-}
-
-function extractSocialNetworks() {
-
-}
-
-function extractAcademicInformation(node) {
-
-}
-
-function extractComplementaryInformation() {
-
-}
-
-function extractProfessionalExperience() {
-
-}
-
-function extractImpactAreas() {
-
-}
-
-function extractLanguages() {
-
-}
 
 //
 // axios.get(url, {responseEncoding: 'latin1'})
