@@ -7,7 +7,7 @@ export class App {
     #translateObjects = false
 
     constructor(configurations) {
-        this.#translateObjects = configurations.translateObjects || false;
+        this.#translateObjects = configurations?.translateObjects ?? false;
     }
 
     async startUp() {
