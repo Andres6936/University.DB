@@ -113,3 +113,7 @@ axios.get(url, {responseEncoding: 'latin1'})
         }
     })
     .catch(console.error);
+
+(async () => {
+    await new App().startUp()
+})()
