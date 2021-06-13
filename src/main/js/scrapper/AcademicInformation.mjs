@@ -1,6 +1,5 @@
 import {KeyValueNodeExtractor} from "./KeyValueNodeExtractor.mjs";
 import {NormalizeStringService} from "../NormalizeStringService.mjs";
-import {TranslationService} from "../TranslationService.mjs";
 
 export class AcademicInformation {
     start(node) {
