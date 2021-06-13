@@ -18,9 +18,9 @@ export class App {
             //@type {string} The text of node
             const text = webScrapper.parsePage(table).toText();
             if (text.includes('Par evaluador reconocido por Minciencias')) {
-                new PersonalInformation().start(table);
+                const nodes = new PersonalInformation().start(table);
             } else if (text.includes('Formación Académica')) {
-                new AcademicInformation().start(table);
+                const nodes = new AcademicInformation().start(table);
             }
         }
     }

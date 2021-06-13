@@ -10,11 +10,12 @@ export class PersonalInformation {
             value = NormalizeStringService.removeLineBreak(value);
             node.second = value;
         }
-        new TranslationService().translateArrayPair(nodes)
-            .then(result => {
-                for (const object of result) {
-                    console.log(object.toString());
-                }
-            });
+        return nodes;
+        // new TranslationService().translateArrayPair(nodes)
+        //     .then(result => {
+        //         for (const object of result) {
+        //             console.log(object.toString());
+        //         }
+        //     });
     }
 }
