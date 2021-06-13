@@ -13,7 +13,7 @@ export class App {
 
     static #printNodes(nodes) {
         for (const node of nodes) {
-            console.log(node);
+            console.log(node.toString());
         }
     }
 
