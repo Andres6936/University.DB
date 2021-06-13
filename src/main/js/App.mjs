@@ -7,7 +7,13 @@ export class App {
         const webScrapper = new WebScrappingService(html);
         const tables = webScrapper.getElementsBySelector('tr');
         for (const table of tables) {
+            //@type {string} The text of node
             const text = webScrapper.parsePage(table).toText();
+            if (text.includes('Par evaluador reconocido por Minciencias')) {
+                console.log("Evaluator")
+            } else if (text.includes('Formación Académica')) {
+                console.log("Academic")
+            }
         }
     }
 }
