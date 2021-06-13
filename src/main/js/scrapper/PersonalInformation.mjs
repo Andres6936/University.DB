@@ -11,11 +11,5 @@ export class PersonalInformation {
             node.second = value;
         }
         return nodes;
-        // new TranslationService().translateArrayPair(nodes)
-        //     .then(result => {
-        //         for (const object of result) {
-        //             console.log(object.toString());
-        //         }
-        //     });
     }
 }

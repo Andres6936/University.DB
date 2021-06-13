@@ -2,6 +2,7 @@ import axios from "axios";
 import {WebScrappingService} from "./scrapper/WebScrappingService.mjs";
 import {AcademicInformation} from "./scrapper/AcademicInformation.mjs";
 import {PersonalInformation} from "./scrapper/PersonalInformation.mjs";
+import {TranslationService} from "./TranslationService.mjs";
 
 export class App {
     #translateObjects = false
@@ -16,6 +17,17 @@ export class App {
         }
     }
 
+    #translateNodes(nodes) {
+        if (this.#translateObjects) {
+            new TranslationService().translateArrayPair(nodes)
+                .then(result => {
+                    for (const object of result) {
+                        console.log(object.toString());
+                    }
+                });
+        }
+    }
+
     async startUp() {
         const html = (await axios.get('http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089', {responseEncoding: 'latin1'})).data
         const webScrapper = new WebScrappingService(html);
@@ -26,9 +38,11 @@ export class App {
             if (text.includes('Par evaluador reconocido por Minciencias')) {
                 const nodes = new PersonalInformation().start(table);
                 App.#printNodes(nodes);
+                this.#translateNodes(nodes);
             } else if (text.includes('Formación Académica')) {
                 const nodes = new AcademicInformation().start(table);
                 App.#printNodes(nodes);
+                this.#translateNodes(nodes);
             }
         }
     }
