@@ -1,5 +1,6 @@
 import axios from "axios";
 import {WebScrappingService} from "./scrapper/WebScrappingService.mjs";
+import {AcademicInformation} from "./scrapper/AcademicInformation.mjs";
 
 export class App {
     async startUp() {
@@ -12,7 +13,7 @@ export class App {
             if (text.includes('Par evaluador reconocido por Minciencias')) {
                 console.log("Evaluator")
             } else if (text.includes('Formación Académica')) {
-                console.log("Academic")
+                new AcademicInformation().start(table);
             }
         }
     }
