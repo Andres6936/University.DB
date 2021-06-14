@@ -1,14 +1,5 @@
-import fs from 'fs';
-import {BrowserQuery} from "./src/main/js/search/BrowserQuery.mjs";
-
-const url = 'Simea Dinas site:http://scienti.colciencias.gov.co';
+import {App} from "./src/main/js/App.mjs";
 
 (async () => {
-    const browserQuery = await new BrowserQuery().startUp();
-    const html = await browserQuery.getHtmlByQuery(url);
-    fs.writeFile('Output.html', html, (error) => {
-        if (error) return console.log(error);
-        console.log('Writing file > Output.html');
-    });
-    await browserQuery.close();
+    await new App().startUp()
 })()
