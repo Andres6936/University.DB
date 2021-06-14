@@ -13,6 +13,9 @@ export class BrowserQuery {
     }
 
     async getHtmlByQuery(query) {
+        // Wait 1/2 second in each search
+        // Ref: https://stackoverflow.com/a/49139664
+        await new Promise(resolve => setTimeout(resolve, 500));
         await this.#page.goto('https://google.com');
         await this.#page.click('[name=q]');
         await this.#page.keyboard.type(query);
