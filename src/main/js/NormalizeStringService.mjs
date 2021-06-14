@@ -14,4 +14,9 @@ export class NormalizeStringService {
         // Remove any amount of spaces for a single space
         return text.replace(/\s+/g, ' ');
     }
+
+    static mergeSlash(text) {
+        if (text.indexOf('/') === -1) return text;
+        return text.substring(0, text.indexOf('/'));
+    }
 }
