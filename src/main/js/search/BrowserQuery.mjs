@@ -4,12 +4,13 @@ export class BrowserQuery {
     #browser = undefined;
     #page = undefined;
 
-    async constructor() {
+    async startUp() {
         this.#browser = await puppeteer.launch({
             headless: false,
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         this.#page = await this.#browser.newPage();
+        return this;
     }
 
     async getHtmlByQuery(query) {
