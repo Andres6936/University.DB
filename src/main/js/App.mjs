@@ -58,7 +58,8 @@ export class App {
 
     async startUp() {
         const browserQuery = await new BrowserQuery().startUp();
-        const names = await App.#getListNamesProfessors();
+        // const names = await App.#getListNamesProfessors();
+        const names = (await App.#getListNamesProfessors()).slice(0, 3);
         for (const name of names) {
             const html = await browserQuery.getHtmlByQuery(name + ' site:http://scienti.colciencias.gov.co');
             await this.#scrapperSite(html);
