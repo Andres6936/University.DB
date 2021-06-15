@@ -1,9 +1,9 @@
-import axios from "axios";
 import {WebScrappingService} from "./scrapper/WebScrappingService.mjs";
 import {AcademicInformation} from "./scrapper/AcademicInformation.mjs";
 import {PersonalInformation} from "./scrapper/PersonalInformation.mjs";
 import {TranslationService} from "./TranslationService.mjs";
 import {DatabaseManagerService} from "./DatabaseManagerService.mjs";
+import {BrowserQuery} from "./search/BrowserQuery.mjs";
 
 export class App {
     #translateObjects = false
@@ -38,12 +38,7 @@ export class App {
         return names;
     }
 
-    async startUp() {
-        const names = await App.#getListNamesProfessors();
-        console.log(names)
-        return;
-
-        const html = (await axios.get('http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089', {responseEncoding: 'latin1'})).data
+    async #scrapperSite(html) {
         const webScrapper = new WebScrappingService(html);
         const tables = webScrapper.getElementsBySelector('tr');
         for (const table of tables) {
@@ -58,6 +53,16 @@ export class App {
                 App.#printNodes(nodes);
                 this.#translateNodes(nodes);
             }
+        }
+    }
+
+    async startUp() {
+        const names = await App.#getListNamesProfessors();
+        for (const name of names) {
+            const browserQuery = await new BrowserQuery().startUp();
+            const html = await browserQuery.getHtmlByQuery(name + ' site:http://scienti.colciencias.gov.co');
+            await this.#scrapperSite(html);
+            await browserQuery.close()
         }
     }
 }
