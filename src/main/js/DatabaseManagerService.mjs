@@ -19,6 +19,7 @@ export class DatabaseManagerService {
         await this.#client.connect();
         // Establish and verify connection
         this.#connection = await this.#client.db('University');
+        return this;
     }
 
     /**
