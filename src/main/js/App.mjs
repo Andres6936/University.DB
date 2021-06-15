@@ -44,7 +44,7 @@ export class App {
         for (const table of tables) {
             //@type {string} The text of node
             const text = webScrapper.parsePage(table).toText();
-            if (text.includes('Par evaluador reconocido por Minciencias')) {
+            if (text.includes('Sexo')) {
                 const nodes = new PersonalInformation().start(table);
                 App.#printNodes(nodes);
                 this.#translateNodes(nodes);
