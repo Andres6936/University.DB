@@ -57,12 +57,12 @@ export class App {
     }
 
     async startUp() {
+        const browserQuery = await new BrowserQuery().startUp();
         const names = await App.#getListNamesProfessors();
         for (const name of names) {
-            const browserQuery = await new BrowserQuery().startUp();
             const html = await browserQuery.getHtmlByQuery(name + ' site:http://scienti.colciencias.gov.co');
             await this.#scrapperSite(html);
-            await browserQuery.close()
         }
+        await browserQuery.close();
     }
 }
