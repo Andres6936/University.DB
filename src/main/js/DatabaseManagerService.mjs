@@ -2,32 +2,39 @@ import {default as mongodb} from 'mongodb';
 
 const MongoClient = mongodb.MongoClient;
 
-const client = new MongoClient('mongodb://localhost:27017', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+export class DatabaseManagerService {
+    #client = undefined
+    #connection = undefined
+    #collection = undefined
 
-async function run() {
-    try {
+    constructor() {
         // Connect the client to the server
-        await client.connect();
-        // Establish and verify connection
-        const db = await client.db("University");
-        const professor = await db.collection('Professor');
-        const result = await professor.find({}).project({_id: 0, Name: 1});
-
-        while (await result.hasNext()) {
-            console.log(await result.next());
-        }
-
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
+        this.#client = new MongoClient('mongodb://localhost:27017', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
     }
-}
 
-run().catch(console.dir);
+    async startUp() {
+        await this.#client.connect();
+        // Establish and verify connection
+        this.#connection = await this.#client.db('University');
+    }
 
-class DatabaseManagerService {
+    /**
+     * @return {Promise<void>} Ensures that the client will close when you finish/error
+     */
+    async close() {
+        await this.#client.close();
+    }
 
+    async getAllProfessors() {
+        this.#collection = this.#connection.collection('Professor');
+        const result = [];
+        const cursor = await this.#collection.find({});
+        while (await cursor.hasNext()) {
+            result.push(await cursor.next());
+        }
+        return result;
+    }
 }
