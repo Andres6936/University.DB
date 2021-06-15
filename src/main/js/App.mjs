@@ -3,6 +3,7 @@ import {WebScrappingService} from "./scrapper/WebScrappingService.mjs";
 import {AcademicInformation} from "./scrapper/AcademicInformation.mjs";
 import {PersonalInformation} from "./scrapper/PersonalInformation.mjs";
 import {TranslationService} from "./TranslationService.mjs";
+import {DatabaseManagerService} from "./DatabaseManagerService.mjs";
 
 export class App {
     #translateObjects = false
@@ -26,7 +27,22 @@ export class App {
         }
     }
 
+    static async #getListNamesProfessors() {
+        const service = await new DatabaseManagerService().startUp()
+        const professors = await service.getAllProfessors();
+        const names = [];
+        for (const professor of professors) {
+            names.push(professor.Name);
+        }
+        await service.close()
+        return names;
+    }
+
     async startUp() {
+        const names = await App.#getListNamesProfessors();
+        console.log(names)
+        return;
+
         const html = (await axios.get('http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000494089', {responseEncoding: 'latin1'})).data
         const webScrapper = new WebScrappingService(html);
         const tables = webScrapper.getElementsBySelector('tr');
