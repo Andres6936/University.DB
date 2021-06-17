@@ -23,6 +23,14 @@ export class BrowserQuery {
         await this.#page.keyboard.press('Enter');
         await this.#page.waitForSelector('h3.LC20lb', {timeout: 2500});
         await this.#page.click('h3.LC20lb');
+        try {
+            // If get the warning of not secure page, continue
+            await this.#page.waitForTimeout(1000);
+            await this.#page.click('button#details-button');
+            await this.#page.click('a#proceed-link');
+        } catch (ignored) {
+            console.log(ignored);
+        }
         return await this.#page.content();
     }
 
