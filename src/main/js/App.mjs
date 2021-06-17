@@ -12,6 +12,17 @@ export class App {
         this.#translateObjects = configurations?.translateObjects ?? false;
     }
 
+    /**
+     * Print all properties of object.
+     * @param object The object to print.
+     */
+    static #printObject(object) {
+        // The second argument alters the contents of the string before
+        // returning it. The third argument specifies how many spaces to
+        // use as white space for readability.
+        console.log(JSON.stringify(object, null, 4));
+    }
+
     static #printNodes(nodes) {
         for (const node of nodes) {
             console.log(node.toString());
@@ -76,6 +87,8 @@ export class App {
             const html = await browserQuery.getHtmlByQuery(name + ' site:https://scienti.colciencias.gov.co');
             const matrix = await this.#scrapperSite(html);
             const master = App.#mergeMatrix(matrix);
+            master['Name'] = name;
+            App.#printObject(master);
         }
         await browserQuery.close();
     }
