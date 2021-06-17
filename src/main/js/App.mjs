@@ -39,10 +39,10 @@ export class App {
     }
 
     static #mergeMatrix(matrix) {
-        let masterNode = {};
+        const masterNode = {};
         for (const nodes of matrix) {
             for (const node of nodes) {
-                masterNode = Object.assign(masterNode, nodes);
+                masterNode[node.first] = node.second;
             }
         }
         return masterNode;
@@ -76,7 +76,6 @@ export class App {
             const html = await browserQuery.getHtmlByQuery(name + ' site:https://scienti.colciencias.gov.co');
             const matrix = await this.#scrapperSite(html);
             const master = App.#mergeMatrix(matrix);
-            App.#printNodes(master);
         }
         await browserQuery.close();
     }
