@@ -38,22 +38,34 @@ export class App {
         return names;
     }
 
+    static #mergeMatrix(matrix) {
+        let masterNode = {};
+        for (const nodes of matrix) {
+            for (const node of nodes) {
+                masterNode = Object.assign(masterNode, nodes);
+            }
+        }
+        return masterNode;
+    }
+
     async #scrapperSite(html) {
         const webScrapper = new WebScrappingService(html);
         const tables = webScrapper.getElementsBySelector('tr');
+        const matrix = [];
         for (const table of tables) {
             //@type {string} The text of node
             const text = webScrapper.parsePage(table).toText();
             if (text.includes('Sexo')) {
                 const nodes = new PersonalInformation().start(table);
-                App.#printNodes(nodes);
                 this.#translateNodes(nodes);
+                matrix.push(nodes);
             } else if (text.includes('Formación Académica')) {
                 const nodes = new AcademicInformation().start(table);
-                App.#printNodes(nodes);
                 this.#translateNodes(nodes);
+                matrix.push(nodes);
             }
         }
+        return matrix;
     }
 
     async startUp() {
@@ -62,7 +74,9 @@ export class App {
         const names = (await App.#getListNamesProfessors()).slice(0, 3);
         for (const name of names) {
             const html = await browserQuery.getHtmlByQuery(name + ' site:https://scienti.colciencias.gov.co');
-            await this.#scrapperSite(html);
+            const matrix = await this.#scrapperSite(html);
+            const master = App.#mergeMatrix(matrix);
+            App.#printNodes(master);
         }
         await browserQuery.close();
     }
